@@ -24,10 +24,7 @@
 // Connect CLK, MISO and MOSI to hardware SPI pins. 
 // See http://arduino.cc/en/Reference/SPI "Connections"
 
-// These are the pins used for the breakout example
-#define BREAKOUT_RESET  9      // VS1053 reset pin (output)
-#define BREAKOUT_CS     10     // VS1053 chip select pin (output)
-#define BREAKOUT_DCS    8      // VS1053 Data/command select pin (output)
+
 // These are the pins used for the music maker shield
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
@@ -39,9 +36,6 @@
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
 Adafruit_VS1053_FilePlayer musicPlayer = 
-  // create breakout-example object!
-  //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
-  // create shield-example object!
   Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
   
 void setup() {
@@ -57,10 +51,8 @@ void setup() {
   SD.begin(CARDCS);    // initialise the SD card
   
   // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
+  musicPlayer.setVolume(30,30);
 
-  // Timer interrupts are not suggested, better to use DREQ interrupt!
-  //musicPlayer.useInterrupt(VS1053_FILEPLAYER_TIMER0_INT); // timer int
 
   // If DREQ is on an interrupt pin (on uno, #2 or #3) we can do background
   // audio playing
@@ -69,9 +61,27 @@ void setup() {
   // Play one file, don't return until complete
   Serial.println(F("Playing track 001"));
   musicPlayer.playFullFile("track001.mp3");
+
+delay(1000);
+  
   // Play another file in the background, REQUIRES interrupts!
   Serial.println(F("Playing track 002"));
   musicPlayer.startPlayingFile("track002.mp3");
+}
+
+void loop2() {  
+  for (uint8_t i=0; i<8; i++) { 
+    musicPlayer.GPIO_pinMode(i, OUTPUT);
+    
+    musicPlayer.GPIO_digitalWrite(i, HIGH);
+    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
+    musicPlayer.GPIO_digitalWrite(i, LOW);
+    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
+
+    musicPlayer.GPIO_pinMode(i, INPUT);
+
+    delay(100);  
+  }
 }
 
 void loop() {
@@ -99,6 +109,8 @@ void loop() {
       }
     }
   }
+  
 
   delay(100);
 }
+
