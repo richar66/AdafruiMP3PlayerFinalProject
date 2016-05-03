@@ -17,13 +17,6 @@
 #include <Adafruit_VS1053.h>
 #include <SD.h>
 
-// define the pins used
-//#define CLK 13       // SPI Clock, shared with SD card
-//#define MISO 12      // Input data, from VS1053/SD card
-//#define MOSI 11      // Output data, to VS1053/SD card
-// Connect CLK, MISO and MOSI to hardware SPI pins. 
-// See http://arduino.cc/en/Reference/SPI "Connections"
-
 
 // These are the pins used for the music maker shield
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
@@ -62,28 +55,10 @@ void setup() {
   Serial.println(F("Playing track 001"));
   musicPlayer.playFullFile("track001.mp3");
 
-delay(1000);
-  
   // Play another file in the background, REQUIRES interrupts!
   Serial.println(F("Playing track 002"));
   musicPlayer.startPlayingFile("track002.mp3");
 }
-
-void loop2() {  
-  for (uint8_t i=0; i<8; i++) { 
-    musicPlayer.GPIO_pinMode(i, OUTPUT);
-    
-    musicPlayer.GPIO_digitalWrite(i, HIGH);
-    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
-    musicPlayer.GPIO_digitalWrite(i, LOW);
-    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
-
-    musicPlayer.GPIO_pinMode(i, INPUT);
-
-    delay(100);  
-  }
-}
-
 void loop() {
   // File is playing in the background
   if (musicPlayer.stopped()) {
@@ -109,8 +84,18 @@ void loop() {
       }
     }
   }
-  
-
   delay(100);
+  for (uint8_t i=0; i<8; i++) { 
+    musicPlayer.GPIO_pinMode(i, OUTPUT);
+    
+    musicPlayer.GPIO_digitalWrite(i, HIGH);
+    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
+    musicPlayer.GPIO_digitalWrite(i, LOW);
+    Serial.print("GPIO: "); Serial.println(musicPlayer.GPIO_digitalRead(i));
+
+    musicPlayer.GPIO_pinMode(i, INPUT);
+
+    delay(100);  
+  }
 }
 
