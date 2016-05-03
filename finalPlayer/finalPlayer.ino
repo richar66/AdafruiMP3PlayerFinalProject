@@ -23,28 +23,25 @@ const int VolumePin = A1;
 int sensorValue = 0;        // value read from the pot
 int outputValue = 0; 
 int count = 0; 
-int totSongs = 24;
+int totSongs = 24;          //total number of songs +1
 
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Adafruit VS1053 Simple Test");
+  Serial.println("Music Maker On");
 
   if (! musicPlayer.begin()) { // initialise the music player
      Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
      while (1);
   }
-  Serial.println(F("VS1053 found"));
+  Serial.println(F("Ready"));
   
   SD.begin(CARDCS);    // initialise the SD card
   
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(30,30);
 
- musicPlayer.GPIO_pinMode(7, INPUT);
-  // If DREQ is on an interrupt pin (on uno, #2 or #3) we can do background
-  // audio playing
-    musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT);  // DREQ int
+
     musicPlayer.GPIO_pinMode(7, INPUT);
     musicPlayer.GPIO_pinMode(6, INPUT);
     musicPlayer.GPIO_pinMode(5, INPUT);
@@ -477,7 +474,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -515,7 +512,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -554,7 +551,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -593,7 +590,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -631,7 +628,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -670,7 +667,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count =count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -709,7 +706,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -747,7 +744,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -785,7 +782,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -824,7 +821,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -863,7 +860,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -901,7 +898,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
@@ -940,7 +937,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = 0;
+               count = count++;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
