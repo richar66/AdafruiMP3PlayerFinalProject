@@ -40,7 +40,7 @@ void setup() {
   
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(30,30);
-
+musicPlayer.useInterrupt(VS1053_FILEPLAYER_PIN_INT); 
 
     musicPlayer.GPIO_pinMode(7, INPUT);
     musicPlayer.GPIO_pinMode(6, INPUT);
@@ -61,7 +61,7 @@ void loop(){
                Serial.println("Random");
                count = random(0,totSongs);
               musicPlayer.stopPlaying(); }
-       delay(200);
+       delay(150);
        }
     if(count == 0){
   Serial.println(F("Playing track: Thickfreakness"));
@@ -93,9 +93,11 @@ void loop(){
               musicPlayer.stopPlaying(); }
 
           sensorValue = analogRead(VolumePin);
+          
              // map it to the range of the analog out:
            outputValue = map(sensorValue, 0, 1023, 0, 100);
              // change the analog out value:
+            // Serial.println(outputValue);
          musicPlayer.setVolume(outputValue,outputValue);
 
     delay (150);
@@ -744,7 +746,7 @@ void loop(){
               
       if(musicPlayer.GPIO_digitalRead(5) ==1){ // if button is pressed Next Song
                Serial.println("Next Song");
-               count = count++;
+               count = 18;
               musicPlayer.stopPlaying(); }
               
      if(musicPlayer.GPIO_digitalRead(4) ==1){ // if button is pressed Previous Song
